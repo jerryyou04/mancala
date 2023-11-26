@@ -186,7 +186,7 @@ public class MancalaGame implements Serializable{
         if (gameType == 1) {
             board = new KalahRules();
         } else {
-            board = new KalahRules();
+            board = new AyoRules();
         }
     }
 
