@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="9.3">
+<file name="/home/undergrad/1/jyou04/CIS2430/GP2Copy/src/main/java/ui/TextUI.java">
+</file>
+<file name="/home/undergrad/1/jyou04/CIS2430/GP2Copy/src/main/java/mancala/Pit.java">
+</file>
+<file name="/home/undergrad/1/jyou04/CIS2430/GP2Copy/src/main/java/mancala/MancalaGame.java">
+</file>
+<file name="/home/undergrad/1/jyou04/CIS2430/GP2Copy/src/main/java/mancala/Board.java">
+<error line="131" column="6" severity="error" message="Method distributeStones length is 73 lines (max allowed is 50)." source="com.puppycrawl.tools.checkstyle.checks.sizes.MethodLengthCheck"/>
+</file>
+<file name="/home/undergrad/1/jyou04/CIS2430/GP2Copy/src/main/java/mancala/InvalidMoveException.java">
+</file>
+<file name="/home/undergrad/1/jyou04/CIS2430/GP2Copy/src/main/java/mancala/Store.java">
+</file>
+<file name="/home/undergrad/1/jyou04/CIS2430/GP2Copy/src/main/java/mancala/PitNotFoundException.java">
+</file>
+<file name="/home/undergrad/1/jyou04/CIS2430/GP2Copy/src/main/java/mancala/NoSuchPlayerException.java">
+</file>
+<file name="/home/undergrad/1/jyou04/CIS2430/GP2Copy/src/main/java/mancala/GameNotOverException.java">
+</file>
+<file name="/home/undergrad/1/jyou04/CIS2430/GP2Copy/src/main/java/mancala/Player.java">
+</file>
+</checkstyle>
