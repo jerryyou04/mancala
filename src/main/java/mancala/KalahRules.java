@@ -1,14 +1,11 @@
 package mancala;
 
-import java.util.ArrayList;
-
 public class KalahRules extends GameRules {
-
-    // Constructor
+    private static final long serialVersionUID = 1L;
     public KalahRules() {
         super(); 
     }
-
+    @Override
     public  int moveStones(int startPit, int playerNum) throws InvalidMoveException{ 
         MancalaDataStructure gameBoard = getDataStructure();
         if (gameBoard.getNumStones(startPit) == 0){
@@ -16,17 +13,16 @@ public class KalahRules extends GameRules {
         } else if (playerNum == 1 && !(startPit >= 1 && startPit <= 6) || playerNum == 2 && !(startPit >= 7 && startPit <= 12)) {
             throw new InvalidMoveException("Pick your own pit!");
         }
-        int storedInStore = 0; 
+        int storedInStore = gameBoard.getStoreCount(playerNum); 
         int stonesDistributed = distributeStones(startPit); // finding last position
         
         int finalPosition = gameBoard.getFinalPos();
          // Check if capturing is appropriate
         if (shouldCapture(finalPosition, playerNum)) {
-            storedInStore = captureStones(finalPosition) + 1; // adds one extra stone
-            gameBoard.removeStones(finalPosition); // remove one stone
+            captureStones(finalPosition); // adds one extra stone
         }
 
-        return storedInStore; // If no stones were captured
+        return gameBoard.getStoreCount(playerNum) - storedInStore; // If no stones were captured
     }
 
     private boolean shouldCapture(int pit, int playerNum) {
@@ -38,7 +34,7 @@ public class KalahRules extends GameRules {
     }
     
     @Override
-      int distributeStones(int startPit) { 
+    /* package */  int distributeStones(int startPit) { 
         MancalaDataStructure gameBoard = getDataStructure();
         int stones = gameBoard.removeStones(startPit);
         int playerNum = getCurrentPlayerNum();
@@ -57,7 +53,7 @@ public class KalahRules extends GameRules {
      }
 
      @Override
-    int captureStones(int stoppingPoint) {
+    /* package */int captureStones(int stoppingPoint) {
         int stonesCaptured = 0;
         
         int oppositePit = 12 - stoppingPoint + 1;
@@ -68,13 +64,13 @@ public class KalahRules extends GameRules {
 
 
         if (stones == 1 && !gameBoard.isInStore()) { // if it's the last stone
-            stonesCaptured = gameBoard.removeStones(oppositePit);
+            stonesCaptured += gameBoard.removeStones(oppositePit);
+            stonesCaptured += gameBoard.removeStones(stoppingPoint); // remove one stone
             if (stoppingPoint <= 6) { // if it lands on playerOnes own side
-                gameBoard.addToStore(1, stonesCaptured + 1); // add extra stone
+                gameBoard.addToStore(1, stonesCaptured); // add extra stone
             } else {
-                gameBoard.addToStore(2, stonesCaptured + 1); // add extra stone
+                gameBoard.addToStore(2, stonesCaptured); // add extra stone
             }
-            stonesCaptured += 1;// to account for extra stone
         }
 
         return stonesCaptured;

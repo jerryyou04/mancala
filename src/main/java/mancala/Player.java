@@ -2,6 +2,7 @@ package mancala;
 import java.io.Serializable;
 
 public class Player implements Serializable{
+    private static final long serialVersionUID = 1L;
     private String playerName;
     private Store playerStore;
     private UserProfile userProfile;
@@ -26,8 +27,8 @@ public class Player implements Serializable{
         playerName = name;
     }
 
-        // Setter method for store
-    /* package */    void setStore(Store store) {
+        
+    protected void setStore(Store store) {
         playerStore = store;
     }
 

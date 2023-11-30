@@ -1,14 +1,13 @@
 package mancala;
-import java.util.ArrayList;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MancalaGame implements Serializable{
+    private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = Logger.getLogger(MancalaGame.class.getName());
     private GameRules board;
     private Player winner;
-    private boolean isGameOver;
     private Player playerOne;
     private Player playerTwo;
     private Player currentPlayer;
@@ -16,7 +15,6 @@ public class MancalaGame implements Serializable{
     public MancalaGame() {
         playerOne = new Player();
         playerTwo = new Player();
-        isGameOver = false;
         currentPlayer = playerOne;
     }
 
@@ -25,19 +23,10 @@ public class MancalaGame implements Serializable{
     }
 
     public Player getCurrentPlayer(){
-        if (board.getCurrentPlayerNum() == 1) {
-            return playerOne;
-        } else if (board.getCurrentPlayerNum() == 2) {
-            return playerTwo;
-        } else {
-            return null;
-        }
+        return board.getCurrentPlayerNum() == 1 ? playerOne : playerTwo;
     }
 
-    public int getNumStones(int pitNum) throws PitNotFoundException {
-        if (pitNum < 1 || pitNum > 12){
-            throw new PitNotFoundException();
-        }
+    public int getNumStones(int pitNum) {
         int totalStones = 0;
         for (int i = 1; i <= 12; i++){
             totalStones += board.getNumStones(i);
@@ -70,24 +59,14 @@ public class MancalaGame implements Serializable{
     }
 
     public boolean isGameOver(){
-        isGameOver = false;
-        try {
-            if (board.isSideEmpty(1)) {
-                isGameOver = true;
-            } else if (board.isSideEmpty(7)){
-                isGameOver = true;
-            }
-        } catch (PitNotFoundException e) {
-            return false;
-            }
-        return isGameOver;
+        return board.isSideEmpty(1) || board.isSideEmpty(7);
     }
 
     public int move(int startPit) throws InvalidMoveException {
         if (startPit < 1 || startPit > 12) {
             throw new InvalidMoveException("Pit out of bounds!");
         } 
-        if ((startPit <= 6 && currentPlayer.equals(playerTwo)) || (startPit >= 7 && currentPlayer.equals(playerOne))) {
+        if (startPit <= 6 && currentPlayer.equals(playerTwo) || startPit >= 7 && currentPlayer.equals(playerOne)) {
             throw new InvalidMoveException("Access your own pits, " + currentPlayer.getName() + "!");
         }
         if (board.getNumStones(startPit) == 0) {
@@ -157,7 +136,8 @@ public class MancalaGame implements Serializable{
 
     private int onSide(int startPit) { // for the useless return statement of move ?
         int onSide = 0;
-        int start, end;
+        int start;
+        int end;
 
         if (startPit >= 1 && startPit <= 6) {
             start = 1;

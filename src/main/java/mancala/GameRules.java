@@ -5,6 +5,7 @@ import java.io.Serializable;
  * KalahRules and AyoRules will subclass this class.
  */
 public abstract class GameRules implements Serializable {
+    private static final long serialVersionUID = 1L;
     private MancalaDataStructure gameBoard;
     private int currentPlayer = 1; // Player number (1 or 2)
 
@@ -41,14 +42,10 @@ public abstract class GameRules implements Serializable {
      * @param pitNum The number of a pit in the side.
      * @return True if the side is empty, false otherwise.
      */
-    boolean isSideEmpty(int pitNum) throws PitNotFoundException {
-        // This method can be implemented in the abstract class.
-        if (pitNum < 1 || pitNum > 12){
-            throw new PitNotFoundException();
-        } 
-
-        //boolean isEmpty = true;
-        int startIndex, endIndex;
+    public boolean isSideEmpty(final int pitNum)  {
+        int startIndex;
+        int endIndex;
+        boolean isEmpty = true;
         if (pitNum <= 6) {
             startIndex = 1;
             endIndex = 6;
@@ -57,14 +54,12 @@ public abstract class GameRules implements Serializable {
             endIndex = 12;
         }
         
-         for (int i = startIndex; i <= endIndex; i++) {
+        for (int i = startIndex; i <= endIndex; i++) {
             if (gameBoard.getNumStones(i) != 0) {
-                //isEmpty = false;
-                return false;
+                isEmpty = false;
             }
         }
-        //return isEmpty;
-        return true;
+        return isEmpty;
     }
 
     /**
@@ -92,7 +87,7 @@ public abstract class GameRules implements Serializable {
      * @param startPit The starting pit for distribution.
      * @return The number of stones distributed.
      */
-    abstract int distributeStones(int startPit);
+    /* package */abstract int distributeStones(int startPit);
 
     /**
      * Capture stones from the opponent's pit and return the number captured.
@@ -100,7 +95,7 @@ public abstract class GameRules implements Serializable {
      * @param stoppingPoint The stopping point for capturing stones.
      * @return The number of stones captured.
      */
-    abstract int captureStones(int stoppingPoint);
+    /* package */abstract int captureStones(int stoppingPoint);
 
     /**
      * Register two players and set their stores on the board.
@@ -142,10 +137,10 @@ public abstract class GameRules implements Serializable {
     @Override
     public String toString() {
         // Implement toString() method logic here.
-        return null;
+        return "Current Player :" + currentPlayer;
     }
 
-    int givePitsAtEnd(int pitNum){
+    protected int givePitsAtEnd(final int pitNum){
         int stonesAdded = 0;
         if (pitNum >=1 && pitNum <=6){
             for (int i = 1; i <= 6; i++){

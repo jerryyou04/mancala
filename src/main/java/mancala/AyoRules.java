@@ -1,11 +1,9 @@
 package mancala;
 
-import java.util.ArrayList;
-
 public class AyoRules extends GameRules {
-
+    private static final long serialVersionUID = 1L;
     public AyoRules() {
-        super();
+        super(); 
     }
 
     @Override
@@ -16,13 +14,13 @@ public class AyoRules extends GameRules {
         } else if (!isValidPit(startPit, playerNum)) {
             throw new InvalidMoveException("Invalid pit selection!");
         }
-
-        int stonesAddedToStore = distributeStones(startPit);
-        return stonesAddedToStore;
+        int stonesAdded = gameBoard.getStoreCount(playerNum);
+        distributeStones(startPit);
+        return gameBoard.getStoreCount(playerNum) - stonesAdded;
     }
 
     @Override
-    int distributeStones(int startPit) {
+    /* package */int distributeStones(int startPit) {
     MancalaDataStructure gameBoard = getDataStructure();
     int playerNum = getCurrentPlayerNum();
     int stones = gameBoard.removeStones(startPit);
@@ -41,7 +39,6 @@ public class AyoRules extends GameRules {
             if (stones == 0 && gameBoard.getNumStones(lastPosition) > 1 && !gameBoard.isInStore()) {
                 // If last stone lands in a non-empty pit, pick up all stones from that pit for next distribution
                 stones = gameBoard.removeStones(lastPosition);
-                System.out.println("Redistributing from pit: " + lastPosition);
             }
         }
 
@@ -49,14 +46,12 @@ public class AyoRules extends GameRules {
 
     if (shouldCapture(lastPosition, playerNum)) {
         stonesDistributed += captureStones(lastPosition);
-        //return captureStones(lastPosition) + stonesDistributed;
         }
-        System.out.println("stonesDistributed: " + stonesDistributed);
         return stonesDistributed;
     }
 
     @Override
-    int captureStones(int stoppingPoint) {
+    /* package */int captureStones(int stoppingPoint) {
         MancalaDataStructure gameBoard = getDataStructure();
         int oppositePit = 12 - stoppingPoint + 1;
         int stonesCaptured = gameBoard.getNumStones(oppositePit);
@@ -67,20 +62,16 @@ public class AyoRules extends GameRules {
         return stonesCaptured;
     }
 
-    private boolean isValidPit(int pitNum, int playerNum) {
-        if (playerNum == 1) {
-            return pitNum >= 1 && pitNum <= 6;
-        } else if (playerNum == 2) {
-            return pitNum >= 7 && pitNum <= 12;
-        }
-        return false;
+    private boolean isValidPit(final int pitNum, final int playerNum) {
+        return playerNum == 1 && pitNum >= 1 && pitNum <= 6 || 
+           playerNum == 2 && pitNum >= 7 && pitNum <= 12;
     }
 
     private boolean shouldCapture(int pit, int playerNum) {
         MancalaDataStructure gameBoard = getDataStructure();
         return gameBoard.getNumStones(pit) == 1 && 
             !gameBoard.isInStore() &&
-            (playerNum == 1 && pit <= 6 || playerNum == 2 && pit >= 7);
+             isValidPit(pit, playerNum);
     }
 
      @Override

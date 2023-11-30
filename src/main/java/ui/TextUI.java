@@ -78,6 +78,7 @@ public class TextUI{
     }
 
     private void startGame(){
+        System.out.println("Is game over " + game.isGameOver());
 
         do{
             while(!game.isGameOver()){

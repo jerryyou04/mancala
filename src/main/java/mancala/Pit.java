@@ -1,6 +1,7 @@
 package mancala;
 import java.io.Serializable;
 public class Pit implements Serializable, Countable {
+    private static final long serialVersionUID = 1L;
     private int stones;
 
     public Pit() {

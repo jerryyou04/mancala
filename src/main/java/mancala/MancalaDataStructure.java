@@ -10,6 +10,7 @@ import java.util.List;
  * Do not add game logic to this class
  */
 public class MancalaDataStructure implements Serializable{
+    private static final long serialVersionUID = 1L;
     private final int PLAYER_ONE = 6;
     private final int PLAYER_TWO = 13;
     private  int START_STONES = 4;  //not final because we might want a different size board in the future
@@ -233,7 +234,7 @@ public class MancalaDataStructure implements Serializable{
         return finalPos;
     }
 
-    void setFinalPos(int finalPosition){
+    protected void setFinalPos(int finalPosition){
         finalPos = finalPosition;
     }
 
