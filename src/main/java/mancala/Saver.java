@@ -1,11 +1,17 @@
 package mancala;
 import java.io.*;
 import java.nio.file.*;
-
+/**
+ * Provides static methods to save and load game objects to and from files.
+ * This utility class manages file operations in the "assets" folder.
+ */
 public final class Saver {
     private static final String ASSETS = "assets";
     private static final Path ASSETSPATH;
 
+    /**
+     * Private constructor to prevent instantiation of this utility class.
+     */
     private Saver() {
         // This constructor will never be called
     }
@@ -24,7 +30,13 @@ public final class Saver {
             throw new IllegalStateException("Error initializing assets folder", e);
         }
     }
-
+    /**
+     * Saves a Serializable object to a file in the assets folder.
+     *
+     * @param toSave The Serializable object to save.
+     * @param filename The name of the file to save the object in.
+     * @throws IOException If an I/O error occurs during saving.
+     */
     public static void saveObject(final Serializable toSave, final String filename) throws IOException {
         final Path filePath = ASSETSPATH.resolve(filename);
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filePath.toFile()))) {
@@ -32,6 +44,14 @@ public final class Saver {
         }
     }
 
+    /**
+     * Loads a Serializable object from a file in the assets folder.
+     *
+     * @param filename The name of the file to load the object from.
+     * @return The loaded Serializable object.
+     * @throws IOException If an I/O error occurs during loading.
+     * @throws ClassNotFoundException If the class of the serialized object cannot be found.
+     */
     public static Serializable loadObject(final String filename) throws IOException, ClassNotFoundException {
         final Path filePath = ASSETSPATH.resolve(filename);
         try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(filePath.toFile()))) {

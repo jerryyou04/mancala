@@ -127,12 +127,24 @@ public abstract class GameRules implements Serializable {
         gameBoard.emptyStores();
     }
 
+    /**
+     * Returns a string representation of the current game state.
+     *
+     * @return A string indicating the current player.
+     */
     @Override
     public String toString() {
         // Implement toString() method logic here.
         return "Current Player :" + currentPlayer;
     }
 
+    /**
+     * Collects and returns the number of stones from all pits on one side of the board.
+     * This method is typically used at the end of the game to gather remaining stones.
+     *
+     * @param pitNum The pit number indicating the player's side. Ranges from 1 to 6 for Player 1, and 7 to 12 for Player 2.
+     * @return The total number of stones collected from the specified side.
+     */
     protected int givePitsAtEnd(final int pitNum){
         int stonesAdded = 0;
         if (pitNum >=1 && pitNum <=6){
@@ -146,10 +158,19 @@ public abstract class GameRules implements Serializable {
         }
         return stonesAdded;
     }
-
+    /**
+     * Retrieves the current player's number.
+     *
+     * @return The number of the current player.
+     */
     public int getCurrentPlayerNum(){
         return currentPlayer;
     }
-
+    /**
+     * Determines if the current move grants an extra turn based on the game rules.
+     * This method must be implemented by subclasses to define specific rules for an extra turn.
+     *
+     * @return {@code true} if an extra turn is granted, {@code false} otherwise.
+     */
     public abstract boolean isExtraTurn();
 }

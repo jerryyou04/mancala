@@ -2,7 +2,9 @@ package mancala;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+/**
+ * Represents a game of Mancala, handling game state and player actions.
+ */
 public class MancalaGame implements Serializable{
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = Logger.getLogger(MancalaGame.class.getName());
@@ -12,20 +14,39 @@ public class MancalaGame implements Serializable{
     private Player playerTwo;
     private Player currentPlayer;
 
+    /**
+     * Constructs a new Mancala game with two players.
+     */
     public MancalaGame() {
         playerOne = new Player();
         playerTwo = new Player();
         currentPlayer = playerOne;
     }
 
+       /**
+     * Gets the current game board with its rules.
+     *
+     * @return The current game board.
+     */
     public GameRules getBoard() {
         return board;
     }
 
+    /**
+     * Retrieves the current player.
+     *
+     * @return The player whose turn it is.
+     */
     public Player getCurrentPlayer(){
         return board.getCurrentPlayerNum() == 1 ? playerOne : playerTwo;
     }
 
+    /**
+     * Calculates the total number of stones in a specific pit.
+     *
+     * @param pitNum The pit number to calculate stones for.
+     * @return The total number of stones in the specified pit.
+     */
     public int getNumStones(final int pitNum) {
         int totalStones = 0;
         for (int i = 1; i <= 12; i++){
@@ -34,11 +55,22 @@ public class MancalaGame implements Serializable{
         return totalStones;
     }
 
+    /**
+     * Gets the number of stones in a player's store.
+     *
+     * @param player The player whose store count is to be retrieved.
+     * @return The number of stones in the player's store.
+     */
     public int getStoreCount(final Player player) {
 
         return player.getStoreCount();
     } 
 
+     /**
+     * Determines the winner of the game, if the game is over.
+     *
+     * @return The player who has won the game, or null in case of a tie.
+     */
     public Player getWinner() {
         // gives stuff at end
         playerOne.getStore().addStones(board.givePitsAtEnd(1));
@@ -58,10 +90,22 @@ public class MancalaGame implements Serializable{
         return winner;
     }
 
+     /**
+     * Checks if the game is over.
+     *
+     * @return {@code true} if the game is over, {@code false} otherwise.
+     */
     public boolean isGameOver(){
         return board.isSideEmpty(1) || board.isSideEmpty(7);
     }
 
+    /**
+     * Attempts to make a move for the current player.
+     *
+     * @param startPit The starting pit for the move.
+     * @return The number of stones on the side of the board after the move.
+     * @throws InvalidMoveException If the move is invalid.
+     */
     public int move(final int startPit) throws InvalidMoveException {
         if (startPit < 1 || startPit > 12) {
             throw new InvalidMoveException("Pit out of bounds!");
@@ -84,14 +128,29 @@ public class MancalaGame implements Serializable{
          
     }
 
+    /**
+     * Sets the GameRules object.
+     * 
+     * @param theBoard the GameRules object to be set.
+     */
     public void setBoard(final GameRules theBoard){
         board = theBoard;
     }
-
+    /**
+     * Sets the current player.
+     * 
+     * @param player the player to be set as the current player.
+     */
     public void setCurrentPlayer(final Player player){
         currentPlayer = player;
     }
 
+    /**
+     * Sets the players of the game.
+     * 
+     * @param onePlayer The first player.
+     * @param twoPlayer The second player.
+     */
     public void setPlayers(final Player onePlayer, final Player twoPlayer){
         playerOne = onePlayer;
         playerTwo = twoPlayer;
@@ -101,10 +160,18 @@ public class MancalaGame implements Serializable{
         board.registerPlayers(onePlayer, twoPlayer);
     }
 
+    /**
+     * Starts a new game by resetting the board.
+     */
     public void startNewGame(){
         board.resetBoard();
     }
 
+    /**
+     * Returns a string representation of the game's current state.
+     * 
+     * @return The string representation of the game.
+     */
     @Override
     public String toString(){
         final StringBuilder boardString = new StringBuilder();
@@ -134,6 +201,12 @@ public class MancalaGame implements Serializable{
         return boardString.toString();
     }
 
+    /**
+     * Calculates the number of stones on one side of the board.
+     * 
+     * @param startPit The starting pit to calculate from.
+     * @return The total number of stones on one side of the board.
+     */
     private int onSide(final int startPit) { // for the useless return statement of move ?
         int onSide = 0;
         int start;
@@ -154,14 +227,30 @@ public class MancalaGame implements Serializable{
         return onSide; // Returns the total number of stones on the player's side
     }
 
+    /**
+     * Retrieves player one of the game.
+     * 
+     * @return Player one.
+     */
     public Player getPlayerOne() {
         return playerOne;
     }
 
+    /**
+     * Retrieves player two of the game.
+     * 
+     * @return Player two.
+     */
     public Player getPlayerTwo() {
         return playerTwo;
     }
 
+
+    /**
+     * Sets the game rules based on the specified game type.
+     *
+     * @param gameType The game type to set (0 for Kalah, 1 for Ayo).
+     */
     public void setGameRules(final int gameType) {
         if (gameType == 0) {
             board = new KalahRules();
@@ -170,6 +259,9 @@ public class MancalaGame implements Serializable{
         }
     }
 
+    /**
+     * Switches the current player to the next player.
+     */
     private void switchPlayer() {
         if (currentPlayer.equals(playerOne)) {
             currentPlayer = playerTwo;

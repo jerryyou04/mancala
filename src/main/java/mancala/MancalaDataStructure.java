@@ -226,14 +226,29 @@ public class MancalaDataStructure implements Serializable{
         return data.get(iteratorPos);
     }
 
+    /**
+     * Determines if the last stone landed in a store.
+     *
+     * @return true if the last stone landed in a store, false otherwise.
+     */
     public boolean isInStore() {
         return iteratorPos == PLAYER_ONE || iteratorPos == PLAYER_TWO;
     }
 
+    /**
+     * Gets the final position of the last stone distributed.
+     *
+     * @return The final position of the last stone.
+     */
     public int getFinalPos() {
         return finalPos;
     }
 
+    /**
+     * Sets the final position of the last stone distributed.
+     *
+     * @param finalPosition The final position to set.
+     */
     protected void setFinalPos(final int finalPosition){
         finalPos = finalPosition;
     }
@@ -246,6 +261,11 @@ public class MancalaDataStructure implements Serializable{
     //     return nextPos + 1; // final increment to make it 1-14 instead of 0-13
     // }
 
+    /**
+     * Gets the current position of the iterator in the data structure.
+     *
+     * @return The current pit position (1-based index).
+     */
     public int getCurrentPit(){
         int currentPit = iteratorPos;
         if(currentPit >= 0 && currentPit < 6){
