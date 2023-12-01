@@ -7,29 +7,29 @@ public class AyoRules extends GameRules {
     }
 
     @Override
-    public int moveStones(int startPit, int playerNum) throws InvalidMoveException {
-        MancalaDataStructure gameBoard = getDataStructure();
+    public int moveStones(final int startPit, final int playerNum) throws InvalidMoveException {
+        final MancalaDataStructure gameBoard = getDataStructure();
         if (gameBoard.getNumStones(startPit) == 0) {
             throw new InvalidMoveException("Starting move cannot start from an empty pit!");
         } else if (!isValidPit(startPit, playerNum)) {
             throw new InvalidMoveException("Invalid pit selection!");
         }
-        int stonesAdded = gameBoard.getStoreCount(playerNum);
+        final int stonesAdded = gameBoard.getStoreCount(playerNum);
         distributeStones(startPit);
         return gameBoard.getStoreCount(playerNum) - stonesAdded;
     }
 
     @Override
-    /* package */int distributeStones(int startPit) {
-    MancalaDataStructure gameBoard = getDataStructure();
-    int playerNum = getCurrentPlayerNum();
+    /* package */int distributeStones(final int startPit) {
+    final MancalaDataStructure gameBoard = getDataStructure();
+    final int playerNum = getCurrentPlayerNum();
     int stones = gameBoard.removeStones(startPit);
     int lastPosition = startPit;
     int stonesDistributed = 0;
     gameBoard.setIterator(lastPosition, playerNum, true); // Set iterator to start at the next pit, skipping the starting pit
     do {
         while (stones > 0) {
-            Countable nextPit = gameBoard.next();
+            final Countable nextPit = gameBoard.next();
             nextPit.addStone();
             stonesDistributed++;
             stones--;
@@ -51,10 +51,10 @@ public class AyoRules extends GameRules {
     }
 
     @Override
-    /* package */int captureStones(int stoppingPoint) {
-        MancalaDataStructure gameBoard = getDataStructure();
-        int oppositePit = 12 - stoppingPoint + 1;
-        int stonesCaptured = gameBoard.getNumStones(oppositePit);
+    /* package */int captureStones(final int stoppingPoint) {
+        final MancalaDataStructure gameBoard = getDataStructure();
+        final int oppositePit = 12 - stoppingPoint + 1;
+        final int stonesCaptured = gameBoard.getNumStones(oppositePit);
 
         gameBoard.addToStore(getCurrentPlayerNum(), stonesCaptured);
         gameBoard.removeStones(oppositePit);
@@ -67,8 +67,8 @@ public class AyoRules extends GameRules {
            playerNum == 2 && pitNum >= 7 && pitNum <= 12;
     }
 
-    private boolean shouldCapture(int pit, int playerNum) {
-        MancalaDataStructure gameBoard = getDataStructure();
+    private boolean shouldCapture(final int pit, final int playerNum) {
+        final MancalaDataStructure gameBoard = getDataStructure();
         return gameBoard.getNumStones(pit) == 1 && 
             !gameBoard.isInStore() &&
              isValidPit(pit, playerNum);

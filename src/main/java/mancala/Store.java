@@ -14,7 +14,7 @@ public class Store implements Serializable, Countable {
         return owner;
     }
 
-    protected void setOwner(Player player) {
+    protected void setOwner(final Player player) {
         owner = player;
     }
 
@@ -27,7 +27,7 @@ public class Store implements Serializable, Countable {
 
     // Method to add stones to the store
     @Override
-    public  void addStones(int amount) {
+    public  void addStones(final int amount) {
         if (amount > 0) {
             stones += amount;
         }
@@ -41,7 +41,7 @@ public class Store implements Serializable, Countable {
     // Method to empty the store and return the number of stones that were in it
     @Override
     public int removeStones() {
-        int originalStones = stones;
+        final int originalStones = stones;
         stones = 0;
         return originalStones;
     }

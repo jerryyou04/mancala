@@ -144,7 +144,7 @@ public class TextUI{
         System.out.println("Please enter Player Two's name: ");
         playerTwo.setName(scanner.nextLine());
 
-        System.out.println("Please enter GameType (1) KalahRules (2) AyoRules");
+        System.out.println("Please enter GameType (0) KalahRules (1) AyoRules");
         int gameType = scanner.nextInt();
         game.setGameRules(gameType);
 

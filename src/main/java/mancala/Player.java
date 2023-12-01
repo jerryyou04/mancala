@@ -3,9 +3,8 @@ import java.io.Serializable;
 
 public class Player implements Serializable{
     private static final long serialVersionUID = 1L;
-    private String playerName;
     private Store playerStore;
-    private UserProfile userProfile;
+    private final UserProfile userProfile;
 
 
     public Player() {
@@ -13,22 +12,21 @@ public class Player implements Serializable{
         userProfile = new UserProfile();
     }
 
-     public Player(String name) {
-        userProfile = new UserProfile();
-        playerName = name;
+     public Player(final String name) {
+        userProfile = new UserProfile(name);
         playerStore = new Store();
     }
 
     public String getName(){
-        return playerName;
+        return userProfile.getName();
     }
 
-    public void setName(String name) {
-        playerName = name;
+    public void setName(final String name) {
+        userProfile.setName(name);
     }
 
         
-    protected void setStore(Store store) {
+    protected void setStore(final Store store) {
         playerStore = store;
     }
 
@@ -43,6 +41,6 @@ public class Player implements Serializable{
     // toString method
     @Override
     public String toString() {
-        return "Player: " + playerName + ", Store: " + playerStore.toString();
+        return "Player: " + getName() + ", Store: " + playerStore.toString();
     }
 }

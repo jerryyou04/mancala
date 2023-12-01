@@ -17,7 +17,7 @@ public class UserProfile implements Serializable {
         this.ayoWins = 0;
     }
 
-    public UserProfile(String name) {
+    public UserProfile(final String name) {
         this.name = name;
         this.kalahGamesPlayed = 0;
         this.ayoGamesPlayed = 0;
@@ -47,42 +47,50 @@ public class UserProfile implements Serializable {
     }
 
     // Setters
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
-    public void setKalahGamesPlayed(int kalahGamesPlayed) {
+    public void setKalahGamesPlayed(final int kalahGamesPlayed) {
         this.kalahGamesPlayed = kalahGamesPlayed;
     }
 
-    public void setAyoGamesPlayed(int ayoGamesPlayed) {
+    public void setAyoGamesPlayed(final int ayoGamesPlayed) {
         this.ayoGamesPlayed = ayoGamesPlayed;
     }
 
-    public void setKalahWins(int kalahWins) {
+    public void setKalahWins(final int kalahWins) {
         this.kalahWins = kalahWins;
     }
 
-    public void setAyoWins(int ayoWins) {
+    public void setAyoWins(final int ayoWins) {
         this.ayoWins = ayoWins;
     }
 
+      public double getKalahWinRate() {
+        return kalahGamesPlayed > 0 ? (double) kalahWins / kalahGamesPlayed : 0.0;
+    }
+
+    public double getAyoWinRate() {
+        return ayoGamesPlayed > 0 ? (double) ayoWins / ayoGamesPlayed : 0.0;
+    }
+
     // Methods to increment game counts and wins
-    public void incrementKalahGamesPlayed() {
-        this.kalahGamesPlayed++;
-    }
+    // public void incrementKalahGamesPlayed() {
+    //     this.kalahGamesPlayed++;
+    // }
 
-    public void incrementAyoGamesPlayed() {
-        this.ayoGamesPlayed++;
-    }
+    // public void incrementAyoGamesPlayed() {
+    //     this.ayoGamesPlayed++;
+    // }
 
-    public void incrementKalahWins() {
-        this.kalahWins++;
-    }
+    // public void incrementKalahWins() {
+    //     this.kalahWins++;
+    // }
 
-    public void incrementAyoWins() {
-        this.ayoWins++;
-    }
+    // public void incrementAyoWins() {
+    //     this.ayoWins++;
+    // }
 
     // toString method for debugging and display purposes
     @Override

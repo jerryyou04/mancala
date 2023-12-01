@@ -6,17 +6,17 @@ public class KalahRules extends GameRules {
         super(); 
     }
     @Override
-    public  int moveStones(int startPit, int playerNum) throws InvalidMoveException{ 
-        MancalaDataStructure gameBoard = getDataStructure();
+    public  int moveStones(final int startPit, final int playerNum) throws InvalidMoveException{ 
+        final MancalaDataStructure gameBoard = getDataStructure();
         if (gameBoard.getNumStones(startPit) == 0){
             throw new InvalidMoveException("Starting move cannot start from an empty pit!");
         } else if (playerNum == 1 && !(startPit >= 1 && startPit <= 6) || playerNum == 2 && !(startPit >= 7 && startPit <= 12)) {
             throw new InvalidMoveException("Pick your own pit!");
         }
-        int storedInStore = gameBoard.getStoreCount(playerNum); 
-        int stonesDistributed = distributeStones(startPit); // finding last position
+        final int storedInStore = gameBoard.getStoreCount(playerNum); 
+        distributeStones(startPit); // finding last position
         
-        int finalPosition = gameBoard.getFinalPos();
+        final int finalPosition = gameBoard.getFinalPos();
          // Check if capturing is appropriate
         if (shouldCapture(finalPosition, playerNum)) {
             captureStones(finalPosition); // adds one extra stone
@@ -25,8 +25,8 @@ public class KalahRules extends GameRules {
         return gameBoard.getStoreCount(playerNum) - storedInStore; // If no stones were captured
     }
 
-    private boolean shouldCapture(int pit, int playerNum) {
-        MancalaDataStructure gameBoard = getDataStructure();
+    private boolean shouldCapture(final int pit, final int playerNum) {
+        final MancalaDataStructure gameBoard = getDataStructure();
         if (playerNum == 1 && pit <= 6 || playerNum == 2 && pit >= 7 && pit <= 12) {
             return gameBoard.getNumStones(pit) == 1 && !gameBoard.isInStore();
         }
@@ -34,33 +34,33 @@ public class KalahRules extends GameRules {
     }
     
     @Override
-    /* package */  int distributeStones(int startPit) { 
-        MancalaDataStructure gameBoard = getDataStructure();
-        int stones = gameBoard.removeStones(startPit);
-        int playerNum = getCurrentPlayerNum();
+    /* package */  int distributeStones(final int startPit) { 
+        final MancalaDataStructure gameBoard = getDataStructure();
+        final int stones = gameBoard.removeStones(startPit);
+        final int playerNum = getCurrentPlayerNum();
         gameBoard.setIterator(startPit, playerNum, false); // Set iterator to start at the next pit
 
         for (int i = 0; i < stones; i++) {
-            Countable nextPit = gameBoard.next();
+            final Countable nextPit = gameBoard.next();
             nextPit.addStone();
         }
 
-        int lastPosition = gameBoard.getCurrentPit();
+        //final int lastPosition = gameBoard.getCurrentPit();
         // Store the final position in the GameRules class
-        gameBoard.setFinalPos(lastPosition);
+        gameBoard.setFinalPos(gameBoard.getCurrentPit());
 
         return stones; // Returns the number of stones distributed
      }
 
      @Override
-    /* package */int captureStones(int stoppingPoint) {
+    /* package */int captureStones(final int stoppingPoint) {
         int stonesCaptured = 0;
         
-        int oppositePit = 12 - stoppingPoint + 1;
+        final int oppositePit = 12 - stoppingPoint + 1;
 
-        MancalaDataStructure gameBoard = getDataStructure();
+        final MancalaDataStructure gameBoard = getDataStructure();
 
-        int stones = gameBoard.getNumStones(stoppingPoint);
+        final int stones = gameBoard.getNumStones(stoppingPoint);
 
 
         if (stones == 1 && !gameBoard.isInStore()) { // if it's the last stone

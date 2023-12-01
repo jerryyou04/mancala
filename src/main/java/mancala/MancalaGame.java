@@ -26,7 +26,7 @@ public class MancalaGame implements Serializable{
         return board.getCurrentPlayerNum() == 1 ? playerOne : playerTwo;
     }
 
-    public int getNumStones(int pitNum) {
+    public int getNumStones(final int pitNum) {
         int totalStones = 0;
         for (int i = 1; i <= 12; i++){
             totalStones += board.getNumStones(i);
@@ -34,7 +34,7 @@ public class MancalaGame implements Serializable{
         return totalStones;
     }
 
-    public int getStoreCount(Player player) {
+    public int getStoreCount(final Player player) {
 
         return player.getStoreCount();
     } 
@@ -62,7 +62,7 @@ public class MancalaGame implements Serializable{
         return board.isSideEmpty(1) || board.isSideEmpty(7);
     }
 
-    public int move(int startPit) throws InvalidMoveException {
+    public int move(final int startPit) throws InvalidMoveException {
         if (startPit < 1 || startPit > 12) {
             throw new InvalidMoveException("Pit out of bounds!");
         } 
@@ -84,15 +84,15 @@ public class MancalaGame implements Serializable{
          
     }
 
-    public void setBoard(GameRules theBoard){
+    public void setBoard(final GameRules theBoard){
         board = theBoard;
     }
 
-    public void setCurrentPlayer(Player player){
+    public void setCurrentPlayer(final Player player){
         currentPlayer = player;
     }
 
-    public void setPlayers(Player onePlayer, Player twoPlayer){
+    public void setPlayers(final Player onePlayer, final Player twoPlayer){
         playerOne = onePlayer;
         playerTwo = twoPlayer;
 
@@ -107,7 +107,7 @@ public class MancalaGame implements Serializable{
 
     @Override
     public String toString(){
-        StringBuilder boardString = new StringBuilder();
+        final StringBuilder boardString = new StringBuilder();
         boardString.append("-------------------------------------------------------------------------\n");
         boardString.append("| Player 2 Store ");
         for (int i = 12; i >= 7; i--) {
@@ -134,7 +134,7 @@ public class MancalaGame implements Serializable{
         return boardString.toString();
     }
 
-    private int onSide(int startPit) { // for the useless return statement of move ?
+    private int onSide(final int startPit) { // for the useless return statement of move ?
         int onSide = 0;
         int start;
         int end;
@@ -162,8 +162,8 @@ public class MancalaGame implements Serializable{
         return playerTwo;
     }
 
-    public void setGameRules(int gameType) {
-        if (gameType == 1) {
+    public void setGameRules(final int gameType) {
+        if (gameType == 0) {
             board = new KalahRules();
         } else {
             board = new AyoRules();

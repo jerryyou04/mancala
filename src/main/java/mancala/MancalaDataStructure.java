@@ -234,17 +234,17 @@ public class MancalaDataStructure implements Serializable{
         return finalPos;
     }
 
-    protected void setFinalPos(int finalPosition){
+    protected void setFinalPos(final int finalPosition){
         finalPos = finalPosition;
     }
 
-    public int getNextPosition(int playerNum) {
-        int nextPos = (iteratorPos + 1) % data.size(); // increments it to find next position
-        if (playerNum == 1 && nextPos == storePos(2) || playerNum == 2 && nextPos == storePos(1)) {
-            nextPos = (nextPos + 1) % data.size(); // increments again to skip player's store
-        }
-        return nextPos + 1; // final increment to make it 1-14 instead of 0-13
-    }
+    // public int getNextPosition(int playerNum) {
+    //     int nextPos = (iteratorPos + 1) % data.size(); // increments it to find next position
+    //     if (playerNum == 1 && nextPos == storePos(2) || playerNum == 2 && nextPos == storePos(1)) {
+    //         nextPos = (nextPos + 1) % data.size(); // increments again to skip player's store
+    //     }
+    //     return nextPos + 1; // final increment to make it 1-14 instead of 0-13
+    // }
 
     public int getCurrentPit(){
         int currentPit = iteratorPos;

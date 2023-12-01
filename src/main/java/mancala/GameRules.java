@@ -6,7 +6,7 @@ import java.io.Serializable;
  */
 public abstract class GameRules implements Serializable {
     private static final long serialVersionUID = 1L;
-    private MancalaDataStructure gameBoard;
+    private final MancalaDataStructure gameBoard;
     private int currentPlayer = 1; // Player number (1 or 2)
 
     /**
@@ -23,7 +23,7 @@ public abstract class GameRules implements Serializable {
      * @param pitNum The number of the pit.
      * @return The number of stones in the pit.
      */
-    public int getNumStones(int pitNum) {
+    public int getNumStones(final int pitNum) {
         return gameBoard.getNumStones(pitNum);
     }
 
@@ -42,32 +42,25 @@ public abstract class GameRules implements Serializable {
      * @param pitNum The number of a pit in the side.
      * @return True if the side is empty, false otherwise.
      */
-    public boolean isSideEmpty(final int pitNum)  {
-        int startIndex;
-        int endIndex;
-        boolean isEmpty = true;
-        if (pitNum <= 6) {
-            startIndex = 1;
-            endIndex = 6;
-        } else {
-            startIndex = 7;
-            endIndex = 12;
-        }
-        
+    public boolean isSideEmpty(final int pitNum) {
+        final int startIndex = pitNum <= 6 ? 1 : 7;
+        final int endIndex = pitNum <= 6 ? 6 : 12;
+
         for (int i = startIndex; i <= endIndex; i++) {
             if (gameBoard.getNumStones(i) != 0) {
-                isEmpty = false;
+                return false; // Return false as soon as a non-empty pit is found
             }
         }
-        return isEmpty;
+        return true; // Return true if no non-empty pits are found
     }
+
 
     /**
      * Set the current player.
      *
      * @param playerNum The player number (1 or 2).
      */
-    public void setPlayer(int playerNum) {
+    public void setPlayer(final int playerNum) {
         currentPlayer = playerNum;
     }
 
@@ -103,11 +96,11 @@ public abstract class GameRules implements Serializable {
      * @param one The first player.
      * @param two The second player.
      */
-    public void registerPlayers(Player one, Player two) {
+    public void registerPlayers(final Player one, final Player two) {
         // this method can be implemented in the abstract class.
          // Create a new store for each player
-        Store storeOne = new Store();
-        Store storeTwo = new Store();
+        final Store storeOne = new Store();
+        final Store storeTwo = new Store();
 
         // Set the owner of each store
         storeOne.setOwner(one);
