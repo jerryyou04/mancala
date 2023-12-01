@@ -1,6 +1,13 @@
 package mancala;
-import java.io.*;
-import java.nio.file.*;
+import java.io.ObjectOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.ObjectInputStream;
+import java.io.FileInputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 /**
  * Provides static methods to save and load game objects to and from files.
  * This utility class manages file operations in the "assets" folder.
@@ -57,5 +64,14 @@ public final class Saver {
         try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(filePath.toFile()))) {
             return (Serializable) input.readObject();
         }
+    }
+
+    /**
+     * Gets the path to the assets folder.
+     *
+     * @return The Path object representing the assets folder.
+     */
+    public static Path getAssetsFolderPath() {
+        return ASSETSPATH;
     }
 }

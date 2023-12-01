@@ -44,6 +44,18 @@ public class Player implements Serializable{
     }
 
     /**
+     * Retrieves the UserProfile associated with this player.
+     * 
+     * The UserProfile contains details such as the player's name,
+     * games played, and wins for each type of Mancala game (Kalah and Ayoayo).
+     * 
+     * @return UserProfile of the player.
+     */
+    public UserProfile getUserProfile(){
+        return userProfile;
+    }
+
+    /**
      * Sets the store associated with the player.
      *
      * @param store The store to be associated with the player.

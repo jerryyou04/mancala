@@ -18,8 +18,11 @@ public class MancalaGame implements Serializable{
      * Constructs a new Mancala game with two players.
      */
     public MancalaGame() {
+        board = new KalahRules(); //KalahRules by default
         playerOne = new Player();
         playerTwo = new Player();
+        playerOne.setName("P1");
+        playerTwo.setName("P2");
         currentPlayer = playerOne;
     }
 
@@ -48,11 +51,7 @@ public class MancalaGame implements Serializable{
      * @return The total number of stones in the specified pit.
      */
     public int getNumStones(final int pitNum) {
-        int totalStones = 0;
-        for (int i = 1; i <= 12; i++){
-            totalStones += board.getNumStones(i);
-        }
-        return totalStones;
+        return board.getNumStones(pitNum);
     }
 
     /**
@@ -270,5 +269,5 @@ public class MancalaGame implements Serializable{
             currentPlayer = playerOne;
             board.setPlayer(1);
         }
-    }
+    }  
 }

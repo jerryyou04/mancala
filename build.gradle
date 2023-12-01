@@ -17,9 +17,9 @@ compileJava {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'ui.TextUI'
+        attributes 'Main-Class': 'ui.MancalaGUI'
     }
-    archiveBaseName = 'TextUI'
+    archiveBaseName = 'MancalaGUI'
 }
 
 dependencies {
@@ -33,13 +33,19 @@ pmd {
     ruleSets = ["category/java/errorprone.xml", "category/java/bestpractices.xml", "category/java/design.xml", "category/java/codestyle.xml"]
     pmdMain {
         excludes = [
+                '**/ui/**/*.java',
                 '**/TextUI.java',
                 '**/test/**' 
         ]
     }
 }
 
+task echo;
 
+echo.doFirst {
+    println "To run the program from jar:\njava -jar build/libs/MancalaGUI.jar"
+    println "To run the program from class files:\njava -cp build/classes/java/main ui.MancalaGUI"
+}
 
 test {
     useJUnitPlatform()

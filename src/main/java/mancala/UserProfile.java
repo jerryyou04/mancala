@@ -143,22 +143,38 @@ public class UserProfile implements Serializable {
         return ayoGamesPlayed > 0 ? (double) ayoWins / ayoGamesPlayed : 0.0;
     }
 
-    // Methods to increment game counts and wins
-    // public void incrementKalahGamesPlayed() {
-    //     this.kalahGamesPlayed++;
-    // }
 
-    // public void incrementAyoGamesPlayed() {
-    //     this.ayoGamesPlayed++;
-    // }
+    /**
+     * Increments the count of Kalah games played by the user.
+     * This method should be called after each completed game of Kalah.
+     */
+    public void incrementKalahGamesPlayed() {
+        this.kalahGamesPlayed++;
+    }
 
-    // public void incrementKalahWins() {
-    //     this.kalahWins++;
-    // }
+    /**
+     * Increments the count of Ayo games played by the user.
+     * This method should be called after each completed game of Ayo.
+     */
+    public void incrementAyoGamesPlayed() {
+        this.ayoGamesPlayed++;
+    }
 
-    // public void incrementAyoWins() {
-    //     this.ayoWins++;
-    // }
+    /**
+     * Increments the count of Kalah games won by the user.
+     * This method should be called when the user wins a game of Kalah.
+     */
+    public void incrementKalahWins() {
+        this.kalahWins++;
+    }
+
+    /**
+     * Increments the count of Ayo games won by the user.
+     * This method should be called when the user wins a game of Ayo.
+     */
+    public void incrementAyoWins() {
+        this.ayoWins++;
+    }
 
     /**
      * Provides a string representation of the user profile for debugging and display purposes.
