@@ -28,6 +28,7 @@ import mancala.MancalaGame;
 import mancala.Player;
 import mancala.Saver;
 import mancala.UserProfile;
+import javax.swing.JMenu;
 
 
 public class MancalaGUI {
@@ -36,6 +37,7 @@ public class MancalaGUI {
     private JPanel gameBoardPanel;
     private JLabel statusBar;
     private MancalaGame game;
+    private JMenu fileMenu;
 
     public MancalaGUI() {
         initializeUI();
@@ -59,6 +61,7 @@ public class MancalaGUI {
         // Setup menu
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
+        
 
         JPanel northPanel = new JPanel(); // Panel to hold buttons
         northPanel.setLayout(new FlowLayout(FlowLayout.CENTER)); // Set layout
@@ -66,6 +69,11 @@ public class MancalaGUI {
         JButton statsButton = new JButton("Display Stats");
         statsButton.addActionListener(e -> displayStatsScreen());
         northPanel.add(statsButton);
+
+        JMenu fileMenu = new JMenu("File");
+        fileMenu.setFont(new Font("Arial", Font.BOLD, 40)); // Adjust font style and size as needed
+        menuBar.add(fileMenu);
+        
 
         JButton mainScreenButton = new JButton("Main Screen");
         mainScreenButton.addActionListener(e -> returnToMainScreen());
@@ -85,6 +93,8 @@ public class MancalaGUI {
         });
         menuBar.add(newGameItem);
 
+        
+
         JMenuItem saveGameItem = new JMenuItem("Save Game");
         saveGameItem.addActionListener(new ActionListener() {
             @Override
@@ -92,7 +102,7 @@ public class MancalaGUI {
                 saveGame();
             }
         });
-        menuBar.add(saveGameItem);
+        fileMenu.add(saveGameItem);
 
         JMenuItem loadGameItem = new JMenuItem("Load Game");
         loadGameItem.addActionListener(new ActionListener() {
@@ -101,7 +111,7 @@ public class MancalaGUI {
                 loadGame();
             }
         });
-        menuBar.add(loadGameItem);
+        fileMenu.add(loadGameItem);
 
         JMenuItem exitItem = new JMenuItem("Exit");
         exitItem.addActionListener(new ActionListener() {
@@ -112,6 +122,7 @@ public class MancalaGUI {
         });
         menuBar.add(exitItem);
 
+        
         frame.pack();
         frame.setVisible(true);
     }
