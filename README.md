@@ -42,10 +42,6 @@ The program will launch a GUI where players can choose between Kalah and Ayoayo 
 - Multiplayer functionality over a network is not supported.
 - The GUI is basic and may not offer advanced graphical features.
 
-## Author Information
-Name: Jerry You
-Student ID: 1241911
-Email: jyou04@uoguelph.ca
 
 ## Development History
 Finished on 2023-12-01.
